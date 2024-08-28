@@ -77,6 +77,21 @@ jobs:
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v2
 
+    # Ensure Docker is running
+    - name: Ensure Docker is running
+      run: |
+        docker --version
+
+    # Build Docker image for tests
+    - name: Build Docker image for tests
+      run: |
+        docker build -t my-dotnet-app-test -f ./path-to-your-dockerfile/Dockerfile .
+
+    # Run tests in Docker
+    - name: Run tests in Docker
+      run: |
+        docker run --rm my-dotnet-app-test dotnet test $env:Test_Project_Path --configuration $env:Configuration
+
     # Execute all unit tests in the solution
     - name: Execute unit tests
       run: dotnet test
