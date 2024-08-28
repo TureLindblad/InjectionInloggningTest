@@ -29,11 +29,11 @@ jobs:
 
     - name: Run Tests in Docker
       run: |
-        docker run --rm my-winforms-app-test
+        docker run --rm my-winforms-app-test dotnet test InjectionInloggningTest/InjectionInloggningTest.csproj --configuration Release
 
     - name: Publish Artifacts
       run: |
-        docker run --rm my-winforms-app-test cp /app/publish ./publish
+        docker run --rm my-winforms-app-test powershell -Command "Copy-Item -Path /app/publish -Recurse -Destination C:\publish"
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
